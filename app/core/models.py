@@ -38,7 +38,7 @@ class UUIDUser(AbstractUser):
     registration = models.CharField(max_length=100, null=True, blank=True, verbose_name="matrícula")
 
     # picture
-    picture = models.ImageField(null=False, blank=True, verbose_name='picture', upload_to='accounts/%Y/%m/%d')
+    picture = models.ImageField(null=False, blank=True, verbose_name='picture', upload_to='accounts/%Y/%m/%d', default='default/44939342_1004064873112118_861463258668728320_n.jpg')
     picture_thumb = ImageSpecField(source='picture', processors=[ResizeToFill(200, 200)], format='JPEG', options={'quality': 60})
 
     def __str__(self):

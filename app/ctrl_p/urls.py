@@ -2,6 +2,9 @@
 
 from __future__ import unicode_literals
 
+from django.conf import settings # new
+from django.conf.urls.static import static # new
+
 from django.urls import include, path
 from django.conf.urls import include, url
 from django.contrib.auth import views as auth_views
@@ -51,4 +54,10 @@ urlpatterns = [
     # View File
     path('documentos/<pk>', ctrl_p.ViewPDF.as_view(), name='view-file')
 
+
+
 ]
+
+if settings.DEBUG: #new
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

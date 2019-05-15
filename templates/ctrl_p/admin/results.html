@@ -36,7 +36,7 @@
             	<div class="media">
 				  <div class="media-left">
 				    <a href="{% url 'ctrl_p:user-details' user.pk %}">
-				      <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="user-image img-circle" alt="User Image" height="75">
+				      <img src="{{ user.picture_thumb.url }}" class="user-image img-circle" alt="User Image" height="75">
 				    </a>
 				  </div>
 				  <div class="media-body">

@@ -13,8 +13,12 @@ from .models import File
 from .forms import FormFile
 from app.core.models import UUIDUser
 
+from django.contrib.auth.decorators import login_required #new
+from django.utils.decorators import method_decorator #new
+
 # View do usuário comun com os arquivos aguardando impressão
 #-----------------------------
+@method_decorator(login_required(login_url='/'), name='dispatch') #new
 class PrinterView(DetailView):
 	model = UUIDUser
 	template_name = 'ctrl_p/user/printer.html'
@@ -25,6 +29,7 @@ class PrinterView(DetailView):
 
 # View do usuário comun com os arquivos aguardando retirada
 #-----------------------------
+@method_decorator(login_required(login_url='/'), name='dispatch') #new
 class WaitingView(DetailView):
 	model = UUIDUser
 	template_name = 'ctrl_p/user/waiting.html'
@@ -35,6 +40,7 @@ class WaitingView(DetailView):
 
 # View do usuário comun com os arquivos concluídos
 #------------------------------
+@method_decorator(login_required(login_url='/'), name='dispatch') #new
 class CompleteView(DetailView):
 	model = UUIDUser
 	template_name = 'ctrl_p/user/complete.html'
@@ -45,6 +51,7 @@ class CompleteView(DetailView):
 
 # View do usuário administrador com os arquivos aguardando impressão
 #--------------------------------
+@method_decorator(login_required(login_url='/'), name='dispatch') #new
 class AdminPrinterView(ListView):
 	'''
 	Classe responsável por renderizar os arquivos que estão aguardando para serem impressos. Visualização do Usuário Administrador
@@ -58,6 +65,7 @@ class AdminPrinterView(ListView):
 
 # View do usuário administrador com os arquivos aguardando retirada
 #--------------------------------
+@method_decorator(login_required(login_url='/'), name='dispatch') #new
 class AdminWaitingView(ListView):
 	'''
 	Classe responsável por renderizar os arquivos que estão aguardando para serem retirados pelo solicitador. Visualização do Usuário Administrador
@@ -71,12 +79,14 @@ class AdminWaitingView(ListView):
 
 # View do usuário administrador onde ele poderá gerar relatórios de uso
 #-----------------------------------
+@method_decorator(login_required(login_url='/'), name='dispatch') #new
 class AdminReportView(TemplateView):
 	template_name = 'ctrl_p/admin/report.html'
 
 # View para consulta de dados do usuário, será mostrada quando o administrador realizar
 # alguma pesquisa e selecionar um usuário dos resultados apresentados.
 #------------------------------- 
+@method_decorator(login_required(login_url='/'), name='dispatch') #new
 class UserDetailView(DetailView):
 	'''
 	Classe responsável por mostrar ao usuário administrador os dados de um usuário
@@ -92,6 +102,7 @@ class UserDetailView(DetailView):
 
 # View responsável pelo carregamento do arquivo para impressão
 #----------------------------
+@method_decorator(login_required(login_url='/'), name='dispatch') #new
 class UploadFile(CreateView):
 	'''
 	Classe responsável por realizar o upload e salvamento do arquivo no banco de dados
@@ -103,6 +114,7 @@ class UploadFile(CreateView):
 
 # View da mensagem sucesso, será mostrada quando o usuário comun realizar o upload de um arquivo para impressão
 #-------------------------------
+@method_decorator(login_required(login_url='/'), name='dispatch') #new
 class SuccessView(TemplateView):
 	'''
 	Classe com o template success, que será renderizado quando o upload do arquivo for concluído com êxito
@@ -111,6 +123,7 @@ class SuccessView(TemplateView):
 
 # View da mensagem sucesso, será mostrada quando o usuário administrador realizar uma atualização no status do arquivo
 #-------------------------------------
+@method_decorator(login_required(login_url='/'), name='dispatch') #new
 class SuccessUpdateView(TemplateView):
 	'''
 	Classe com o template success, que será renderizado quando o arquivo for atualizado com êxito
@@ -119,6 +132,7 @@ class SuccessUpdateView(TemplateView):
 
 # View que renderizará os resultados da pesquisa realizada pelo usuário administrador
 #---------------------------
+@method_decorator(login_required(login_url='/'), name='dispatch') #new
 class ResultsView(ListView):
 	'''
 	Classe responsável por listar os resultados da pesquisa realizada pelo usuário administrador
@@ -135,6 +149,7 @@ class ResultsView(ListView):
 
 # View que renderizará um arquivo já existente no banco e dará a opção de atualizar o status do arquivo
 #--------------------------------
+@method_decorator(login_required(login_url='/'), name='dispatch') #new
 class UpdateFileView(UpdateView):
 	'''
 	Classe responsável por realizar atualização no model file
@@ -146,6 +161,7 @@ class UpdateFileView(UpdateView):
 
 # View que renderiza o arquivo PDF na tela do navegador, para os usuários poderem visualizar o arquivo no próprio navegador
 #-------------------
+@method_decorator(login_required(login_url='/'), name='dispatch') #new
 class ViewPDF(View):
 	def get(self, request, pk):
 		kwargs = models.File.objects.filter(id = pk)
